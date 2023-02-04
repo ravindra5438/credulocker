@@ -1,10 +1,12 @@
 import { View, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, IconButton, Text, useTheme } from "react-native-paper";
 import IconText from "../../components/IconText";
+import axios from "../../utils/axiosInstance";
 
 const Profile = () => {
   const theme = useTheme();
+  const [edulockeruser, setEdulockerUser] = useState(null);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -24,19 +26,52 @@ const Profile = () => {
       borderBottomStartRadius: 8,
     },
   });
+
+  const getEdulockerUser = async () => {
+    try {
+      await axios
+        .get("/edulockerUser/ravindrayadav5438@gmail.com")
+        .then((res) => {
+          setEdulockerUser(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch {
+      (err) => {
+        console.log(err);
+      };
+    }
+  };
+
+  useEffect(() => {
+    getEdulockerUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.nameContainer}>
-        <Avatar.Text label="R" size={120} />
-        <Text variant="titleLarge" style={{ color: "white" }}>
-          ravindrayadav5438
-        </Text>
+        <Avatar.Text
+          label={edulockeruser?.name.substring(0, 1).toUpperCase()}
+          size={120}
+        />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Text variant="titleLarge" style={{ color: "white" }}>
+            {edulockeruser?.name}
+          </Text>
+          <IconButton icon="pencil" iconColor={theme.colors.primary} />
+        </View>
       </View>
       <View style={styles.linkContainer}>
         <IconText
           onPress={() => console.log("Ravindra")}
           iconName="email"
-          text="Add Email"
+          text={edulockeruser?.email[0] || "Add Email"}
         />
         <IconText
           onPress={() => console.log("Ravindra")}
@@ -61,7 +96,7 @@ const Profile = () => {
         <IconText
           onPress={() => console.log("Ravindra")}
           iconName="whatsapp"
-          text="Add WhatsApp No."
+          text={edulockeruser?.socialHandlers?.whatsapp || "Add WhatsApp No."}
         />
       </View>
     </View>

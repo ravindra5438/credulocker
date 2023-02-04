@@ -1,8 +1,9 @@
 import { View } from "react-native";
-import { IconButton, Button } from "react-native-paper";
+import { IconButton, Button, useTheme } from "react-native-paper";
 import React from "react";
 
-const IconText = ({ onPress, text, iconName }) => {
+const IconText = ({ onPress, text, iconName, edit, onEditIconPress }) => {
+  const theme = useTheme();
   return (
     <View
       style={{
@@ -17,6 +18,13 @@ const IconText = ({ onPress, text, iconName }) => {
       >
         {text}
       </Button>
+      {edit && (
+        <IconButton
+          onPress={onEditIconPress}
+          iconColor={theme.colors.primary}
+          icon="pencil"
+        />
+      )}
     </View>
   );
 };

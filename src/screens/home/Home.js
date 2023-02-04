@@ -1,33 +1,13 @@
-import { View, Text, FlatList } from "react-native";
-import React, { useEffect, useState } from "react";
-import axios from "../../utils/axiosInstance";
+import { FlatList, Text, View } from "react-native";
+import React, { useEffect } from "react";
 import SingleDocument from "./SingleDocument";
+import { useAppContext } from "../../context/AppContext";
 
 const Home = () => {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    try {
-      axios
-        .get("/signedDocs/byEmail/ravindrayadav5438@gmail.com")
-        .then((res) => {
-          setData(res.data.response);
-        })
-        .catch((err) => {
-          console.log("err", err);
-        });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
+  const { userData } = useAppContext();
   return (
     <FlatList
-      data={data}
+      data={userData}
       renderItem={({ item }) => <SingleDocument item={item} />} //<Text>{item._id}</Text>
       keyExtractor={(item) => item._id}
     />

@@ -18,7 +18,7 @@ import axios from "../../utils/axiosInstance";
 const Login = () => {
   const theme = useTheme();
   const [otpScreen, setOtpScreen] = useState(false);
-  const { dispatch } = useAppContext();
+  const { dispatch, login } = useAppContext();
   const [email, setEmail] = useState();
   const [errorEmail, setErrorEmail] = useState({});
   const [otp, setOtp] = useState();
@@ -137,24 +137,7 @@ const Login = () => {
   };
 
   const handleSubmitOtp = async () => {
-    try {
-      await axios
-        .post("/otp/verify", {
-          otp: otp,
-          firstTime: true,
-          loginId: email,
-        })
-        .then((res) => {
-          console.log("res.data", res.data);
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
-    } catch {
-      (err) => {
-        console.log(err);
-      };
-    }
+    login(email, otp);
   };
 
   return (
