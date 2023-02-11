@@ -9,7 +9,7 @@ const Theme = {
     onPrimaryContainer: "rgb(56, 0, 56)",
     secondary: "rgb(109, 88, 105)",
     onSecondary: "rgb(255, 255, 255)",
-    secondaryContainer: "rgb(247, 218, 239)",
+    secondaryContainer: "rgb(248, 238, 242)",
     onSecondaryContainer: "rgb(39, 22, 36)",
     tertiary: "rgb(130, 83, 69)",
     onTertiary: "rgb(255, 255, 255)",
@@ -40,7 +40,7 @@ const Theme = {
       level4: "rgb(243, 226, 243)",
       level5: "rgb(241, 222, 241)",
     },
-    surfaceDisabled: "rgba(30, 26, 29, 0.12)",
+    surfaceDisabled: "rgba(13, 152, 186, .5)", //rgba(30, 26, 29, 0.12)
     onSurfaceDisabled: "rgba(30, 26, 29, 0.38)",
     backdrop: "rgba(55, 46, 52, 0.4)",
   },

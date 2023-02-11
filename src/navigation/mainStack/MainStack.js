@@ -11,18 +11,18 @@ const MainStack = () => {
   const { user, getUserData } = useAppContext();
 
   const prepare = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await AsyncStorage.getItem("user").then((data) => {
         getUserData(data);
       });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
     } catch {
       (e) => console.warn(e);
     } finally {
-      setIsLoading(false);
       await SplashScreen.hideAsync();
     }
+    setIsLoading(false);
   };
   useEffect(() => {
     prepare();

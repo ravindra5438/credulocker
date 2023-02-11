@@ -73,8 +73,18 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem("user");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, dispatch, login, getUserData }}>
+    <AppContext.Provider
+      value={{ ...state, dispatch, login, getUserData, logOut }}
+    >
       {children}
     </AppContext.Provider>
   );

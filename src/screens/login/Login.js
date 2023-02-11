@@ -22,6 +22,7 @@ const Login = () => {
   const [email, setEmail] = useState();
   const [errorEmail, setErrorEmail] = useState({});
   const [otp, setOtp] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const styles = StyleSheet.create({
     container: {
@@ -104,6 +105,7 @@ const Login = () => {
   }, []);
 
   const handleSendOtp = async () => {
+    setIsLoading(true);
     try {
       if (isValidEmail(email)) {
         await axios
@@ -134,10 +136,13 @@ const Login = () => {
       console.log("err 2", error);
       setOtpScreen(true);
     }
+    setIsLoading(false);
   };
 
   const handleSubmitOtp = async () => {
+    setIsLoading(true);
     login(email, otp);
+    setIsLoading(false);
   };
 
   return (
@@ -230,7 +235,9 @@ const Login = () => {
                 BACK
               </Button>
               <Button
-                icon="send"
+                loading={isLoading}
+                disabled={isLoading}
+                icon={"send"}
                 onPress={() => {
                   handleSubmitOtp();
                 }}
@@ -243,6 +250,8 @@ const Login = () => {
             </View>
           ) : (
             <Button
+              loading={isLoading}
+              disabled={isLoading}
               icon="email"
               onPress={() => handleSendOtp()}
               style={styles.getOtpButton}
